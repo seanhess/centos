@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Usage: From linode stack script 
+#   source <ssinclude StackScriptID=168>
+
+# Usage: From new system on the command line
+#   yum -y install git
+#   git clone http://github.com/seanhess/centos.git
+#   source centos/centos_library.sh
+
+# You can then call any function like: 
+#   system_update
+#   www_user seanhess somepassword
 
 # Dependencies - make sure they only run once
 readonly Ran=1
