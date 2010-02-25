@@ -34,7 +34,7 @@ function epel_repo {
 function install_basics {
     system_update
     epel_repo
-    yum -y install wget curl rsync git sudo vim make
+    yum -y install wget curl rsync git sudo vim make which mlocate
     yum -y install gcc gcc-c++ gettext-devel expat-devel curl-devel zlib-devel openssl-devel perl cpio 
     echo "Installed Basics"
 }
@@ -84,6 +84,10 @@ function nginx {
     
     yum -y install pcre-devel zlib-devel openssl-devel
     
+    # Installs the service script, puts things in the right places
+    yum -y install nginx
+    
+    # Install the full version of nginx
     mkdir ~/sources
     cd ~/sources
     wget http://nginx.org/download/nginx-0.7.65.tar.gz
@@ -92,6 +96,10 @@ function nginx {
     ./configure --with-http_ssl_module
     make
     make install
+    
+    # Now link it in the right place
+    mv /usr/sbin/nginx /usr/sbin/nginx.old
+    ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
     
     echo "Nginx installed"
     nginx=$Ran
