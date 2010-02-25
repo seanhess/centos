@@ -29,7 +29,7 @@ function system_update {
 # a whole bunch of yum stuff
 function install_basics {
     system_update
-    yum -y install wget curl rsync git sudo
+    yum -y install wget curl rsync git sudo vim make
     yum -y install gcc gcc-c++ gettext-devel expat-devel curl-devel zlib-devel openssl-devel perl cpio 
     echo "Installed Basics"
 }
