@@ -14,8 +14,8 @@
 #   www_user seanhess somepassword
 
 # Dependencies - make sure they only run once
-readonly Ran=1
-readonly New=0
+Ran=1
+New=0
 ruby19=$New
 www_group=$New
 
