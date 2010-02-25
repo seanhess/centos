@@ -18,6 +18,7 @@ Ran=1
 New=0
 ruby19=$New
 www_group=$New
+nginx=$New
 
 # update packages and install epel repo
 function system_update {
