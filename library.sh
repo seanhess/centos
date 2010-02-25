@@ -4,6 +4,7 @@
 #   source <ssinclude StackScriptID=168>
 
 # Usage: From new system on the command line
+#   rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-3.noarch.rpm
 #   yum -y install git
 #   git clone http://github.com/seanhess/centos.git
 #   source centos/centos_library.sh
@@ -64,7 +65,7 @@ function www_user {
 }
 
 function www_group {
-    if [ $www_group == $Ran ] then return; fi
+    if [ $www_group == $Ran ]; then return; fi
     groupadd www
     chown -R :www /var/www
     echo "www group created"
