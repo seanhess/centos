@@ -28,8 +28,9 @@ function system_update {
 
 # a whole bunch of yum stuff
 function install_basics {
-    yum -y wget curl rsync git sudo
-    yum -y gcc gcc-c++ gettext-devel expat-devel curl-devel zlib-devel openssl-devel perl cpio 
+    system_update
+    yum -y install wget curl rsync git sudo
+    yum -y install gcc gcc-c++ gettext-devel expat-devel curl-devel zlib-devel openssl-devel perl cpio 
     echo "Installed Basics"
 }
 
@@ -73,11 +74,10 @@ function www_group {
 }
 
 function nginx {
-    sudo yum install pcre-devel zlib-devel openssl-devel
+    yum -y install pcre-devel zlib-devel openssl-devel
     
     mkdir ~/sources
     cd ~/sources
-    wget
 }
 
 # http://sifumoraga.blogspot.com/2009/11/installing-couchdb-on-centos5-system.html
