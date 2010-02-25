@@ -89,7 +89,7 @@ function nginx {
     wget http://nginx.org/download/nginx-0.7.65.tar.gz
     tar zxvf nginx-0.7.65.tar.gz
     cd nginx-0.7.65
-    ./configure
+    ./configure --with-http_ssl_module
     make
     make install
     
