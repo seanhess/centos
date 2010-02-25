@@ -22,13 +22,18 @@ www_group=$New
 # update packages and install epel repo
 function system_update {
     yum -y update
-    rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-3.noarch.rpm
+    epel_repo
     echo "System Updated"
+}
+
+function epel_repo {
+    rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-3.noarch.rpm
 }
 
 # a whole bunch of yum stuff
 function install_basics {
     system_update
+    epel_repo
     yum -y install wget curl rsync git sudo vim make
     yum -y install gcc gcc-c++ gettext-devel expat-devel curl-devel zlib-devel openssl-devel perl cpio 
     echo "Installed Basics"
@@ -73,16 +78,28 @@ function www_group {
     www_group=$Ran
 }
 
+# Or should I just use the yum version
 function nginx {
+    if [ $nginx == $Ran ]; then return; fi
+    
     yum -y install pcre-devel zlib-devel openssl-devel
     
     mkdir ~/sources
     cd ~/sources
+    wget http://nginx.org/download/nginx-0.7.65.tar.gz
+    tar zxvf nginx-0.7.65.tar.gz
+    cd nginx-0.7.65
+    ./configure
+    make
+    make install
+    
+    echo "Nginx installed"
+    nginx=$Ran
 }
 
 # http://sifumoraga.blogspot.com/2009/11/installing-couchdb-on-centos5-system.html
 function couchdb {
-    install_basics
+    epel_repo
     yum -y install ncurses-devel openssl-devel icu libicu-devel js js-devel curl-devel erlang erlang-devel libtool
     yum -y install couchdb
     
