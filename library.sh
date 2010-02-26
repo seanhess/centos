@@ -61,12 +61,13 @@ function ruby19 {
 
 # Create a user and add them to the www group?
 function www_user {
-    create_web_group
+    www_group
     
     username=$1
     password=$2
     
     useradd -m -p $password $username
+    usermod -aG www $username
     
     echo "User $username created"
 }
@@ -74,12 +75,18 @@ function www_user {
 function www_group {
     if [ $www_group == $Ran ]; then return; fi
     groupadd www
+    usermod -aG www root
+    mkdir -p /var/www
     chown -R :www /var/www
     echo "www group created"
     www_group=$Ran
 }
 
-# Or should I just use the yum version
+# Installs from source, but links things back in yum-style
+# /etc/nginx
+# /var/log/nginx
+# /etc/init.d/nginx
+# /usr/sbin/nginx
 function nginx {
     if [ $nginx == $Ran ]; then return; fi
     
@@ -111,5 +118,4 @@ function couchdb {
     epel_repo
     yum -y install ncurses-devel openssl-devel icu libicu-devel js js-devel curl-devel erlang erlang-devel libtool
     yum -y install couchdb
-    
 }
