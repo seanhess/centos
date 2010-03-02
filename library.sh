@@ -19,6 +19,7 @@ New=0
 ruby19=$New
 www=$New
 nginx=$New
+admin=$New
 
 # update packages and install epel repo
 function system_update {
@@ -78,9 +79,18 @@ function www {
 #     www_group=$Ran
 # }
 
+function admin_group {
+    if [ $admin == $Ran ]; then return; fi
+    
+    groupadd admin
+    echo "added admin group"
+    admin=$Ran
+}
+
 function sudoer {
+    admin_group
     username=$1
-    echo "$username ALL=(ALL)   ALL" >> /etc/sudoers
+    usermod -aG admin $username
 }
 
 # Installs from source, but links things back in yum-style
