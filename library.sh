@@ -87,6 +87,22 @@ function set_group {
     echo "Added $username to $group"
 }
 
+function fix_path {
+    username=$1
+    path="$HOME/.bash_profile"
+    sed -i .old -e 's/^PATH=.*$/PATH=$HOME\/bin:\/sbin:\/usr\/local\/bin:\/usr\/local\/sbin:\/bin:\/usr\/bin:\/usr\/sbin/' $path
+}
+
+# returns a users home directory
+function home_directory {
+    username=$1
+    if [ $username == "root" ]; then
+        return "/root"
+    else
+        return "/home/$username"
+    fi
+}
+
 # Create a "www" deploy user with no password
 # this automatically creates a www group as well
 function www {
