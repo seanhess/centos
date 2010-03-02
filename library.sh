@@ -80,7 +80,7 @@ function www {
 
 function sudoer {
     username=$1
-    # echo "$username ALL=(ALL)   ALL" >> 
+    echo "$username ALL=(ALL)   ALL" >> /etc/sudoers
 }
 
 # Installs from source, but links things back in yum-style
