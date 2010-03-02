@@ -17,7 +17,7 @@
 Ran=1
 New=0
 ruby19=$New
-www_group=$New
+www=$New
 nginx=$New
 
 # update packages and install epel repo
@@ -35,7 +35,7 @@ function epel_repo {
 function install_basics {
     system_update
     epel_repo
-    yum -y install wget curl rsync git sudo vim make which mlocate
+    yum -y install wget curl rsync git sudo vim make which mlocate man vixie-cron readline-devel
     yum -y install gcc gcc-c++ gettext-devel expat-devel curl-devel zlib-devel openssl-devel perl cpio 
     echo "Installed Basics"
 }
@@ -59,27 +59,28 @@ function ruby19 {
     ruby19=$Ran
 }
 
-# Create a user and add them to the www group?
-function www_user {
-    www_group
-    
-    username=$1
-    password=$2
-    
-    useradd -m -p $password $username
-    usermod -aG www $username
-    
-    echo "User $username created"
+# Create a "www" deploy user with no password
+function www {
+    if [ $www == $Ran ]; then return; fi
+    useradd www
+    mkdir -p /var/www
+    chown -R www:www /var/www
+    echo "User www created"
 }
 
-function www_group {
-    if [ $www_group == $Ran ]; then return; fi
-    groupadd www
-    usermod -aG www root
-    mkdir -p /var/www
-    chown -R :www /var/www
-    echo "www group created"
-    www_group=$Ran
+# function www_group {
+#     if [ $www_group == $Ran ]; then return; fi
+#     groupadd www
+#     usermod -aG www root
+#     mkdir -p /var/www
+#     chown -R :www /var/www
+#     echo "www group created"
+#     www_group=$Ran
+# }
+
+function sudoer {
+    username=$1
+    # echo "$username ALL=(ALL)   ALL" >> 
 }
 
 # Installs from source, but links things back in yum-style
