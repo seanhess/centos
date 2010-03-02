@@ -89,8 +89,7 @@ function set_group {
 
 function fix_path {
     username=$1
-    homedir=home_directory $username
-    path="$homedir/.bash_profile"
+    path="$(home_directory $username)/.bash_profile"
     sed -i .old -e 's/^PATH=.*$/PATH=$HOME\/bin:\/sbin:\/usr\/local\/bin:\/usr\/local\/sbin:\/bin:\/usr\/bin:\/usr\/sbin/' $path
 }
 
@@ -98,9 +97,9 @@ function fix_path {
 function home_directory {
     username=$1
     if [ $username == "root" ]; then
-        return "/root"
+        echo "/root"
     else
-        return "/home/$username"
+        echo "/home/$username"
     fi
 }
 
