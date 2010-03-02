@@ -60,7 +60,35 @@ function ruby19 {
     ruby19=$Ran
 }
 
+function create_user {
+    username=$1
+    password=$2
+    
+    useradd $username
+    set_password $username $password
+}
+
+function set_password {
+    username=$1
+    password=$2
+    
+    echo $password > /tmp/password.txt
+    passwd --stdin $username < /tmp/password.txt
+    rm /tmp/password.txt
+    
+    echo "Set password for $username"
+}
+
+function set_group {
+    username=$1
+    group=$2
+    
+    usermod -aG $group $username
+    echo "Added $username to $group"
+}
+
 # Create a "www" deploy user with no password
+# this automatically creates a www group as well
 function www {
     if [ $www == $Ran ]; then return; fi
     useradd www
@@ -69,27 +97,19 @@ function www {
     echo "User www created"
 }
 
-# function www_group {
-#     if [ $www_group == $Ran ]; then return; fi
-#     groupadd www
-#     usermod -aG www root
-#     mkdir -p /var/www
-#     chown -R :www /var/www
-#     echo "www group created"
-#     www_group=$Ran
-# }
-
 function admin_group {
     if [ $admin == $Ran ]; then return; fi
         
     groupadd admin
     echo "%admin        ALL=(ALL)       ALL" >> /etc/sudoers
+    echo "created admin group"
 }
 
 function sudoer {
     admin_group
     username=$1
     usermod -aG admin $username
+    echo "$username has sudo rights"
 }
 
 # Installs from source, but links things back in yum-style
