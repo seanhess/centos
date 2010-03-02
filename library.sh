@@ -81,10 +81,9 @@ function www {
 
 function admin_group {
     if [ $admin == $Ran ]; then return; fi
-    
+        
     groupadd admin
-    echo "added admin group"
-    admin=$Ran
+    echo "%admin        ALL=(ALL)       ALL" >> /etc/sudoers
 }
 
 function sudoer {
