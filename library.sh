@@ -91,7 +91,10 @@ function fix_path {
     username=$1
     path="$(home_directory $username)/.bash_profile"
     sed -i .old -e 's/^PATH=.*$/PATH=$HOME\/bin:\/sbin:\/usr\/local\/bin:\/usr\/local\/sbin:\/bin:\/usr\/bin:\/usr\/sbin/' $path
+#    echo "alias sudo='sudo -E '"
 }
+
+
 
 # returns a users home directory
 function home_directory {
