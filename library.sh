@@ -38,7 +38,13 @@ function install_basics {
     epel_repo
     yum -y install wget curl rsync git sudo vim make which mlocate man vixie-cron readline-devel
     yum -y install gcc gcc-c++ gettext-devel expat-devel curl-devel zlib-devel openssl-devel perl cpio 
+    yum -y install pinfo
     echo "Installed Basics"
+}
+
+function sources {
+    mkdir ~/sources
+    cd ~/sources
 }
 
 function ruby19 {
@@ -167,4 +173,30 @@ function couchdb {
     epel_repo
     yum -y install ncurses-devel openssl-devel icu libicu-devel js js-devel curl-devel erlang erlang-devel libtool
     yum -y install couchdb
+}
+
+# Doesn't work yet!!!
+function couchdb_lounge {
+    install_basics
+    
+    sources
+    
+    git clone http://github.com/tilgovi/couchdb-lounge.git
+    
+    wget http://mirrors.igsobe.com/apache/couchdb/0.10.1/apache-couchdb-0.10.1.tar.gz
+    tar zxvf apache-couchdb-0.10.1.tar.gz
+    cd apache-couchdb-0.10.1
+    
+    patch -p1 < ~/sources/couchdb-lounge/rpm/couchdb/des
+}
+
+
+function nodejs {
+    sources
+    wget http://nodejs.org/dist/node-v0.1.31.tar.gz
+    tar zxvf node-v0.1.31.tar.gz
+    cd node-v0.1.31
+    ./configure
+    make
+    make install
 }
