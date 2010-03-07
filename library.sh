@@ -144,6 +144,8 @@ function sudoer {
 # /usr/sbin/nginx
 function nginx {
     if [ $nginx == $Ran ]; then return; fi
+        
+    install_basics
     
     yum -y install pcre-devel zlib-devel openssl-devel
     
