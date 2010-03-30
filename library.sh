@@ -195,9 +195,9 @@ function couchdb_lounge {
 
 function nodejs {
     sources
-    wget http://nodejs.org/dist/node-v0.1.31.tar.gz
-    tar zxvf node-v0.1.31.tar.gz
-    cd node-v0.1.31
+    wget http://nodejs.org/dist/node-v0.1.33.tar.gz
+    tar zxvf node-v0.1.33.tar.gz
+    cd node-v0.1.33
     ./configure
     make
     make install
