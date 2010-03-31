@@ -223,3 +223,12 @@ function nodejs {
     make
     make install
 }
+
+# depends on nodejs
+function coffeescript {
+    sources
+    git clone http://github.com/jashkenas/coffee-script.git
+    cd coffee-script
+    bin/cake install
+    
+}
