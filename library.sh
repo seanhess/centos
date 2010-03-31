@@ -166,8 +166,6 @@ function nginx {
     mv /usr/sbin/nginx /usr/sbin/nginx.old
     ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
     
-    turnon nginx    
-    
     echo "Nginx installed"
     nginx=$Ran
 }
@@ -198,8 +196,6 @@ function couchdb {
     ./configure
     make 
     make install
-    
-    turnon couchdb
 }
 
 # Doesn't work yet!!!
