@@ -166,6 +166,8 @@ function nginx {
     mv /usr/sbin/nginx /usr/sbin/nginx.old
     ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
     
+    turnon nginx    
+    
     echo "Nginx installed"
     nginx=$Ran
 }
@@ -196,6 +198,8 @@ function couchdb {
     ./configure
     make 
     make install
+    
+    turnon couchdb
 }
 
 # Doesn't work yet!!!
@@ -213,6 +217,11 @@ function couchdb_lounge {
     patch -p1 < ~/sources/couchdb-lounge/rpm/couchdb/des
 }
 
+function turnon {
+    name=$1
+    chkconfig $name on
+    service $name start
+}
 
 function nodejs {
     sources
