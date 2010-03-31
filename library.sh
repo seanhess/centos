@@ -170,11 +170,32 @@ function nginx {
     nginx=$Ran
 }
 
+function curl {
+    sources
+    wget http://curl.haxx.se/download/curl-7.20.0.tar.gz -O curl.tar.gz
+    tar zxvf curl.tar.gz
+    cd curl-7.20.0
+    ./configure
+    make
+    make install
+}
+
 # http://sifumoraga.blogspot.com/2009/11/installing-couchdb-on-centos5-system.html
+# Needs curl > 7.18
+# http://porteightyeight.com/2009/06/12/installing-couchdb-centos-5-linux/
 function couchdb {
     epel_repo
     yum -y install ncurses-devel openssl-devel icu libicu-devel js js-devel curl-devel erlang erlang-devel libtool
-    yum -y install couchdb
+    
+    sources
+    
+    wget http://apache.osuosl.org/couchdb/0.11.0/apache-couchdb-0.11.0.tar.gz -O couchdb.tar.gz
+    tar zxvf couchdb.tar.gz
+    
+    cd apache-couchdb-0.11.0
+    ./configure
+    make 
+    make install
 }
 
 # Doesn't work yet!!!
